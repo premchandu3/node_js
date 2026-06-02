@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "name": "nodeapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "sample.js",
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  },
+  "scripts": {
+    "start":"node sample.js",
+    "dev":"nodemon sample.js",
+    "staging":"node sample.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
