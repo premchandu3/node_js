@@ -1,45 +1,76 @@
-const { message } = require("statuses")
+const connectDB = require("../db/db_connect");
 
-let users = [
-    { id: 1, name: "avinash" },
-    { id: 2, name: "anil" },
-    { id: 3, name: "jaswanth" },
-    { id: 4, name: "bhargava" }
-]
+// let users = [
+//     { id: 1, name: "avinash" },
+//     { id: 2, name: "anil" },
+//     { id: 3, name: "jaswanth" },
+//     { id: 4, name: "bhargava" }
+// ]
 
-const fetchUsers = async (req,res)=>{
-    try{
+const fetchUsers = async (req, res) => {
+
+    try {
+        const db = await connectDB();
+
+        const allEmps = await db.collection("emp").find().toArray();
+
+        // console.log("allEmps-----", allEmps)
         res.status(200).json({
-            message:"User Fetched"
+            message: "users fetched",
+            allEmps
         })
-    }catch(error){
+    } catch (error) {
         res.status(500).json({
-            message:error.message
+            message: error.message
         })
     }
+
 }
 
-const createUser = async (req,res)=>{
-    try{
-        console.log("req----",req);
-    console.log("req.body----",req.body);
+const createUsers = async (req, res) => {
 
-    let user = req.body;
+    try {
+        let user = req.body;
+        console.log("user---", user)
+        // users.push(user);
 
-    users.push(user)
-    res.status(201).json({
-        message:"User Added",
-        user
-    })
-    }catch(error){
+        const db = await connectDB();
+
+        const allEmps = await db.collection("emp").insertOne(req.body);
+
+        res.status(201).json({
+            message: "Employee added"
+        })
+    } catch (error) {
         res.status(500).json({
-            message:error.message
+            message: error.message
+        })
+    }
+
+}
+
+const fileUpload = async (req, res) =>{
+    try {
+
+
+        //multer
+        //formidable
+        // xlsx
+        //winston
+        
+        res.status(201).json({
+            message: "Employee added"
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
         })
     }
 }
 
 
 module.exports = {
-    fetchUsers ,
-    createUser 
+    fetchUsers,
+    createUsers,
+    fileUpload
 }
